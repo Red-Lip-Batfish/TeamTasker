@@ -31,35 +31,30 @@ const personSchema = new Schema({
 
 const people = mongoose.model('people', personSchema);
 
-const taskArrSchema = new Schema({
-  task: {
-    type: String,
-    required: true,
-  },
-  _id: {
-    type: String,
-    required: true,
-  },
-  user: String,
-});
+// const taskArrSchema = new Schema({
+//   task: {
+//     type: String,
+//     required: true,
+//   },
+//   user: String,
+// });
 
-const taskArr = mongoose.model('taskArr', taskArrSchema);
+// const taskArr = mongoose.model('taskArr', taskArrSchema);
 
 const listSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  taskArr: [],
-  //   team: {
-  //     type: String,
-  //     required: true,
-  //     },
+  taskArr: {
+    type: Array,
+    default: [],
+  },
 });
 
 const list = mongoose.model('list', listSchema);
 
-module.exports = { people, list, taskArr };
+module.exports = { people, list };
 
 /*
 

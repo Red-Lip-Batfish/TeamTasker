@@ -42,25 +42,101 @@ const controller = {
     next();
   },
 
-  async createAndAddTask(req, res, next) {
-    console.log('in createTask middleware');
+  async deleteList(req, res, next) {
+    const { _id } = req.body;
 
-    const { _id, task } = req.body;
-
-    const data = await schemas.taskArr.create({task:"front End",id: `_id`});
-    console.log(data);
-    const data2 = await schemas.list.findOneAndUpdate(_id, { taskArr: [data] });
-    console.log(data2)
+    const deleted = await schemas.list.deleteOne({ _id });
+    console.log(deleted);
     next();
   },
 
-  // async addTask(req, res, next) {
-  //   console.log('in addTask middleware');
-  //   const data = await schemas.list.find({ ...req.body });
+  async createAndAddTask(req, res, next) {
+    console.log('in createTask middleware');
+    const { _id, task } = req.body;
 
-  //   console.log(data);
-  //   next();
+    const data = await schemas.taskArr.create({ task });
+    // console.log(data);
+    const currentData = await schemas.list.findOne({ _id });
+    // console.log(currentData);
+    const updated = await schemas.list.updateOne(
+      { _id },
+      { taskArr: [...currentData.taskArr, data] }
+    );
+    // console.log(updated);
+    console.log(data);
+    next();
+  },
+
+  // async editTask(req, res, next) {
+  //   const { _id, task, newTask } = req.body;
+
+  //   const list =
   // },
+
+  async deleteTask(req, res, next) {
+    const { _id, task } = req.body;
+
+    const currentData = await schemas.list.findOne({ _id });
+    const updated = await schemas.list.updateOne(
+      { _id },
+      { taskArr: currentData.taskArr.filter((obj) => obj.task !== task) }
+    );
+    console.log(currentData);
+    next();
+  },
+
+  async moveTask(req, res, next) {
+    const { idOriginal, idNew, task } = req.body;
+    const originalList = await schemas.list.findOne({ _id: idOriginal });
+    let taskObject = originalList.taskArr.filter((obj) => obj.task === task);
+    // console.log(originalList)
+    // console.log(taskObject[0])
+    const newList = await schemas.list.findOne({ _id: idNew });
+    // // console.log(newList)
+    const removedFromOriginal = await schemas.list.updateOne(
+      { _id: idOriginal },
+      { taskArr: originalList.taskArr.filter((obj) => obj.task !== task) }
+    );
+    // console.log(removedFromOriginal)
+    const addedToNew = await schemas.list.updateOne(
+      { _id: idNew },
+      { taskArr: [...newList.taskArr, taskObject[0]] }
+    );
+    // // console.log(addedToNew)
+    next();
+  },
+
+  //add functionality to check if username exists
+  async assignUser(req, res, next) {
+    const { username, _id, task } = req.body;
+    const list = await schemas.list.findOne({ _id });
+    list.taskArr.forEach((obj) => {
+      if (obj.task === task) {
+        obj.assignedUser = username;
+      }
+    });
+    const updated = await schemas.list.updateOne(
+      { _id },
+      { taskArr: list.taskArr }
+    );
+    next();
+  },
+
+  async unassignUser(req, res, next) {
+    const { _id, task } = req.body;
+
+    const list = await schemas.list.findOne({ _id });
+    list.taskArr.forEach((obj) => {
+      if (obj.task === task) {
+        delete obj.assignedUser;
+      }
+    });
+    const updated = await schemas.list.updateOne(
+      { _id },
+      { taskArr: list.taskArr }
+    );
+    next();
+  },
 };
 
 module.exports = controller;
