@@ -4,20 +4,10 @@ const controller = {
   async login(req, res, next) {
     console.log('in login middleware');
 
-    //   try {
-    //     //   const { username, password } = req.body;
-    //    let result =  await schemas.people.find({ ...req.body });
-    //     console.log(result)
-    //     next();
-    //   } catch (err) {
-    //     console.log('testerr');
-    //     next(err);
-    //   }
-
-    let result = await schemas.people.findOne({ ...req.body });
+    let result = await schemas.people.find({ ...req.body });
     // console.log(result);
-    if (result === null) {
-      res.status(400).json('Username or password is incorrect');
+    if (result.length === 0) {
+      res.status(400).send('Username or password is incorrect');
     } else {
       res.locals.people = result;
       next();
@@ -26,13 +16,6 @@ const controller = {
 
   async signup(req, res, next) {
     console.log('in signup middleware');
-    // try {
-    //   const data = await schemas.people.create({ ...req.body });
-    //   console.log(data);
-    //   next();
-    // } catch (err) {
-    //   next(err);
-    // }
     const data = await schemas.people.create({ ...req.body });
     console.log(data);
     next();
@@ -47,17 +30,37 @@ const controller = {
     if (result === null) {
       next();
     } else {
-      res.status(400).json('Username already exists');
+      res.status(400).send('Username already exists');
     }
   },
 
-  
   async createList(req, res, next) {
     console.log('in createList middleware');
     const data = await schemas.list.create({ ...req.body });
+    res.locals._id = data._id;
     console.log(data);
     next();
   },
+
+  async createAndAddTask(req, res, next) {
+    console.log('in createTask middleware');
+
+    const { _id, task } = req.body;
+
+    const data = await schemas.taskArr.create({task:"front End",id: `_id`});
+    console.log(data);
+    const data2 = await schemas.list.findOneAndUpdate(_id, { taskArr: [data] });
+    console.log(data2)
+    next();
+  },
+
+  // async addTask(req, res, next) {
+  //   console.log('in addTask middleware');
+  //   const data = await schemas.list.find({ ...req.body });
+
+  //   console.log(data);
+  //   next();
+  // },
 };
 
 module.exports = controller;
