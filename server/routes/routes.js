@@ -24,9 +24,11 @@ router.post('/createAndAddTask', controller.createAndAddTask, (req, res) => {
   res.status(200).json('task created');
 });
 
+/*
 router.post('/editTask', controller.editTask, (req, res) => {
     res.status(200).json('task edited');
 });
+*/
 
 router.post('/deleteTask', controller.deleteTask, (req, res) => {
   res.status(200).json('task deleted');

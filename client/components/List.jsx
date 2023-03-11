@@ -1,4 +1,5 @@
 import React from 'react';
+import Task from './Task.jsx';
 
 const List = (props) => {
 
@@ -9,9 +10,6 @@ const List = (props) => {
       <button>Delete List</button>
     </div>
   )
-
-
-
 }
 
 export default List;
