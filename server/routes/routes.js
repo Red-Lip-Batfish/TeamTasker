@@ -5,11 +5,11 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/login', controller.login, (req, res) => {
-  res.status(200).json(res.locals.people);
+  res.status(200).send(res.locals.people);
 });
 
 router.post('/signup', controller.isUnique, controller.signup, (req, res) => {
-  res.status(200).json('signup successful');
+  res.status(200).json({ message: 'user created'});
 });
 
 router.post('/createList', controller.createList, (req, res) => {
@@ -24,11 +24,9 @@ router.post('/createAndAddTask', controller.createAndAddTask, (req, res) => {
   res.status(200).json('task created');
 });
 
-/*
-router.post('/editTask', controller.editTask, (req, res) => {
-    res.status(200).json('task edited');
-});
-*/
+// router.post('/editTask', controller.editTask, (req, res) => {
+//     res.status(200).json('task edited');
+// });
 
 router.post('/deleteTask', controller.deleteTask, (req, res) => {
   res.status(200).json('task deleted');
