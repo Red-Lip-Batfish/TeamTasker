@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.pluralize(null);
 
 const Schema = mongoose.Schema;
 
@@ -35,6 +36,10 @@ const taskArrSchema = new Schema({
     type: String,
     required: true,
   },
+  _id: {
+    type: String,
+    required: true,
+  },
   user: String,
 });
 
@@ -45,7 +50,7 @@ const listSchema = new Schema({
     type: String,
     required: true,
   },
-  taskArr: [{ type: mongoose.Schema.Types.ObjectId, ref: 'taskArr' }],
+  taskArr: [],
   //   team: {
   //     type: String,
   //     required: true,
@@ -54,7 +59,7 @@ const listSchema = new Schema({
 
 const list = mongoose.model('list', listSchema);
 
-module.exports = { people, list };
+module.exports = { people, list, taskArr };
 
 /*
 
