@@ -1,10 +1,13 @@
 // import statements
 import React from 'react';
-import { navigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 
 // define Login component
 const Login = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // define onChange and onClick functionality that isn't passed down as a prop
 
   // define onClick functionality for the login button
@@ -25,7 +28,8 @@ const Login = (props) => {
       .then (data => {
         console.log(data);
         navigate({
-          pathname: '/home'
+          pathname: '/home',
+          search: `?username=${username}`,
         })
       })
       .catch(err => {

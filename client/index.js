@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './components/App.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
-import Provider from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 import store from './store.js';
-
+ 
 // define our parent component Routing, which will route users to different components based on URI endpoints
 const Routing = () => {
   return (
