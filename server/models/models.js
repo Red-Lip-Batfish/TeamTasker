@@ -30,23 +30,6 @@ const personSchema = new Schema({
 
 const people = mongoose.model('people', personSchema);
 
-const listSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  taskArr: {
-    type: [taskArr],
-    required: true,
-  },
-  //   team: {
-  //     type: String,
-  //     required: true,
-  //     },
-});
-
-const list = mongoose.model('list', listSchema);
-
 const taskArrSchema = new Schema({
   task: {
     type: String,
@@ -56,6 +39,20 @@ const taskArrSchema = new Schema({
 });
 
 const taskArr = mongoose.model('taskArr', taskArrSchema);
+
+const listSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  taskArr: [{ type: mongoose.Schema.Types.ObjectId, ref: 'taskArr' }],
+  //   team: {
+  //     type: String,
+  //     required: true,
+  //     },
+});
+
+const list = mongoose.model('list', listSchema);
 
 module.exports = { people, list };
 
