@@ -4,6 +4,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 
 // define Signup component
 const Signup = (props) => {
+  const navigate = useNavigate();
   // define onClick functionality for the signup function
   const signupAndLogin = () => {
     const username = document.getElementById('signupUsername').value;
