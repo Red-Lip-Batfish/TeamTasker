@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import listsReducer from "./reducers";
-import listsSlice, { createList, deleteList } from './slice.js';
-import { initialState } from "./reducers";
+import listsSlice from './slice.js';
+import { initialState } from './slice.js';
 
 const store = configureStore({
   reducer: listsSlice.reducer,

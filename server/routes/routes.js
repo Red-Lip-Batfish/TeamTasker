@@ -4,6 +4,10 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get('/home', controller.home, (req, res) => {
+  res.status(200).send(res.locals.lists);
+});
+
 router.post('/login', controller.login, (req, res) => {
   res.status(200).send(res.locals.people);
 });
@@ -20,13 +24,17 @@ router.post('/deleteList', controller.deleteList, (req, res) => {
   res.status(200).json('list deleted');
 });
 
+router.post('saveList', controller.saveList, controller.createAndAddTask, (req, res) =>{
+  res.status(200).json('empty list updated');
+})
+
 router.post('/createAndAddTask', controller.createAndAddTask, (req, res) => {
   res.status(200).json('task created');
 });
 
-// router.post('/editTask', controller.editTask, (req, res) => {
-//     res.status(200).json('task edited');
-// });
+router.post('/editTask', controller.editTask, (req, res) => {
+    res.status(200).json('task edited');
+});
 
 router.post('/deleteTask', controller.deleteTask, (req, res) => {
   res.status(200).json('task deleted');
