@@ -1,6 +1,7 @@
 // import statements/
 import React from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import axios from 'axios'
 
 // define Signup component
 const Signup = (props) => {

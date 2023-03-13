@@ -52,7 +52,12 @@ const listsSlice = createSlice({
     },
     // action payload: 
     addTask(state, action) {
-      state.lists[action.payload].tasks.push(blankTask);
+      console.log('addTask action payload: ', action.payload)
+      let index;
+      for (let i = 0; i < state.lists.length; i++) {
+        if (state.lists[i]._id === action.payload) index = i;
+      }
+      state.lists[index].tasks.push(blankTask);
     },
     // payload should be an object with two properties, listIndex and taskIndex
     // listIndex should be the index of the current list, and taskIndex should be the
@@ -108,17 +113,17 @@ saveListThunk(listDetails){
 //   }
 // },
 
-// //edit action payload here
-// addTaskThunk(listIndexAndId) {
-//   return (dispatch) => {
-//     const { listIndex, listId } = listIndexAndId;
-//     dispatch(addTask(listIndex));
-//     axios.post('/createAndAddTask', { _id: listId, task: '' })
-//     .then(response => {
-//       if (response.status !== 200) return 'Error in addTaskThunk'
-//     });
-//   }
-// },
+//edit action payload here
+addTaskThunk(listId) {
+  return (dispatch) => {
+    console.log('in addTaskThunk');
+    dispatch(addTask(listId));
+    axios.post('/createAndAddTask', { _id: listId, task: '' })
+    .then(response => {
+      if (response.status !== 200) return 'Error in addTaskThunk'
+    });
+  }
+},
 // // **edit considering the necessary inputs and outputs for server requests
 // deleteTaskThunk(listIndexAndId,){
 //   return async (state, action) => {

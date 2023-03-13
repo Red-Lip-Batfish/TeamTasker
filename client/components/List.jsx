@@ -55,7 +55,7 @@ const List = (props) => {
         {arrOfTasks}
       </div>
       <div className='buttonRow'>
-        <button onClick={addTask}>Add Task</button>
+        <button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>Add Task</button>
         <button onClick={deleteList}>Delete List</button>
         <button onClick={() => dispatch(thunks.saveListThunk({title: props.title, team: props.team, _id: props._id, tasks: props.tasks}))}>Save List</button>
       </div>
