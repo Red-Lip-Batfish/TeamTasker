@@ -36,6 +36,7 @@ const taskArrSchema = new Schema({
     type: String,
     required: true,
   },
+  description: String,
   user: String,
 });
 
@@ -50,6 +51,8 @@ const listSchema = new Schema({
     type: Array,
     default: [],
   },
+  description: String,
+  team: String
 });
 
 const list = mongoose.model('list', listSchema);
