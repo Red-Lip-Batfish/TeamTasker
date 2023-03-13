@@ -3,12 +3,19 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 const createList = createAction('lists/createList');
 const deleteList = createAction('lists/deleteList');
 
-export const initialState = { lists: [] };
+export const initialState = { lists: [{title: 'test', tasks: [], team: 'test team', id: '01'}] };
 const blankList = {
   title: '',
   tasks: [],
   team: '',
   id: undefined,
+}
+
+const blankTask = {
+  title: '',
+  description: '',
+  assignment: '',
+  currentList: '',
 }
 
 const listsReducer = createReducer(initialState, (builder) => {

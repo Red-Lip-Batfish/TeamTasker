@@ -2,13 +2,10 @@
 import React from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 
-
 // define Login component
 const Login = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // define onChange and onClick functionality that isn't passed down as a prop
 
   // define onClick functionality for the login button
   const login = () => {
@@ -44,12 +41,10 @@ const Login = (props) => {
       <input type='text'
         placeholder='Username'
         id='usernameInput'
-        // onChange={e => setNewItem(e.target.value)}
       />
       <input type='text'
         placeholder='Password'
         id='passwordInput'
-      // onChange={e => setNewItem(e.target.value)}
       />
       <button onClick={login}>Log In</button>
       <span><Link to='/signup'>Sign Up</Link></span>
