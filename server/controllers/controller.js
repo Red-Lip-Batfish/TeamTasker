@@ -137,6 +137,13 @@ const controller = {
     );
     next();
   },
+
+  async home(req,res,next){
+    
+    const data =  await schemas.list.find({});
+    res.locals.lists = data
+    next;
+  }
 };
 
 module.exports = controller;
