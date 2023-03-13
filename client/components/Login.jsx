@@ -37,7 +37,7 @@ const Login = (props) => {
   // render username and password inputs, login and signup buttons
   return(
     <div className="login">
-      <h1>Welcome to Log In</h1>
+      <h1>Log In</h1>
       <input type='text'
         placeholder='Username'
         id='usernameInput'

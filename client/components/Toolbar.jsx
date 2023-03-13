@@ -8,10 +8,13 @@ import React from 'react';
 const Toolbar = (props) => {
 
   return(
-    <div>
+    <div className = 'toolBar'>
+      <div className = 'title'>Team</div>
+      <div classname = 'right align'>
       <button>Add List</button>
-      <button>Dark Mode</button>
+      <button>Delete All Tasks</button>
       <button>Sign Out</button>
+      </div>
     </div>
   )
 

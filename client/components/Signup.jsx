@@ -35,7 +35,7 @@ const Signup = (props) => {
   // render signup fields and buttons
   return (
     <div className="login">
-      <h1>Please Sign Up</h1>
+      <h1>Sign Up</h1>
       <input type='text'
           placeholder='Username'
           id='signupUsername'
