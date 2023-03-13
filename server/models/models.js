@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.pluralize(null);
 
 const Schema = mongoose.Schema;
 
@@ -45,16 +46,15 @@ const listSchema = new Schema({
     type: String,
     required: true,
   },
-  taskArr: [{ type: mongoose.Schema.Types.ObjectId, ref: 'taskArr' }],
-  //   team: {
-  //     type: String,
-  //     required: true,
-  //     },
+  taskArr: {
+    type: Array,
+    default: [],
+  },
 });
 
 const list = mongoose.model('list', listSchema);
 
-module.exports = { people, list };
+module.exports = { people, list, taskArr };
 
 /*
 
