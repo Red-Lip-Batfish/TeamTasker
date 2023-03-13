@@ -11,11 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', routes);
 
 
-
-
-
-
-
 //GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
     const defaultErr = {

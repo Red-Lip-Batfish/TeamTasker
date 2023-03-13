@@ -2,16 +2,19 @@ import React from 'react';
 import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
+import { thunks } from '../slice.js';
 
 const List = (props) => {
-
+  // assign the evaluated result of useDispatch to a constant, dispatch
   const dispatch = useDispatch();
 
-  // capture the array of lists from store in a constant called stateLists
+  // capture the array of lists from store in a constant called stateLists --> THIS DOESN'T WORK
   const stateLists = useSelector((state) => state.lists)
 
   // populate an array of tasks with the tasks in the current list's tasks array (from props)
   const arrOfTasks = [];
+  console.log('list props: ', props)
+  console.log('stateLists in list component: ', stateLists)
   for (let i = 0; i < props.tasks.length; i++) {
     const currentTask = props.tasks[i];
     arrOfTasks.push(
@@ -39,23 +42,23 @@ const List = (props) => {
     dispatch(deleteList(updatedList));
   }
 
-  const saveList = () => {}
-
   // render the array of tasks and buttons
   return (
     <div className='list'>
-      <div>Title
+      <div>Title:
         <input defaultValue={props.title}></input>
       </div>
-      <div>Team
+      <div>Team:
         <input defaultValue={props.team}></input>
       </div>
-      <div>Tasks
+      <div>Tasks:
         {arrOfTasks}
       </div>
-      <button onClick={addTask}>Add Task</button>
-      <button onClick={deleteList}>Delete List</button>
-      <button onClick={saveList}>Save List</button>
+      <div className='buttonRow'>
+        <button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>Add Task</button>
+        <button onClick={deleteList}>Delete List</button>
+        <button onClick={() => dispatch(thunks.saveListThunk({title: props.title, team: props.team, _id: props._id, tasks: props.tasks}))}>Save List</button>
+      </div>
     </div>
   )
 }
