@@ -63,7 +63,7 @@ const controller = {
       { taskArr: [...currentData.taskArr, data] }
     );
     // console.log(updated);
-    console.log(data);
+    // console.log(data);
     next();
   },
 
