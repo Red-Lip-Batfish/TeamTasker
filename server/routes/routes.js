@@ -4,6 +4,10 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get('/home', controller.home, (req, res) => {
+  res.status(200).send(res.locals.lists);
+});
+
 router.post('/login', controller.login, (req, res) => {
   res.status(200).send(res.locals.people);
 });
