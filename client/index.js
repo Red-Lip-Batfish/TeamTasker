@@ -7,6 +7,7 @@ import Signup from './components/Signup.jsx';
 import ReactDOM  from 'react-dom/client';
 import store from './store.js';
 import { Provider } from 'react-redux';
+import './styles.scss'
  
 // define our parent component Routing, which will route users to different components based on URI endpoints
 const Routing = () => {

@@ -1,0 +1,46 @@
+
+
+
+
+.login{
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 300px;
+	height: 200px;
+	padding: 20px;
+	background-color: white;
+	justify-content: center;
+	align-items: center;
+	
+	
+	button{
+		margin: 0 auto;
+		width: 75%;
+		border-radius: 5px;
+		border: none;
+		background-color: #38d39f;
+		color: white;
+
+	}
+
+	input{
+		border: none;
+		border-bottom: 1px solid gray;
+		margin: 10px 0;
+		width: 75%;
+		height: 30px;
+		padding-bottom: 10px
+		
+
+
+	}
+
+	a{
+		text-decoration: none;
+
+	}
+
+}
