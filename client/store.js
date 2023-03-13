@@ -1,8 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { composeWithDevTools } from 'redux-devtools-extension';
-import listsReducer from "./reducers";
-import listsSlice, { createList, deleteList } from './slice.js';
-import { initialState } from "./reducers";
+import listsSlice from './slice.js';
 
 
 const store = configureStore({

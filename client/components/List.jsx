@@ -1,10 +1,11 @@
 import React from 'react';
 import Task from './Task.jsx';
-import { useSelector } from 'react-redux';
-import * as actions from '../actions.js';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask, deleteList } from '../slice.js';
 
 const List = (props) => {
+
+  const dispatch = useDispatch();
 
   // capture the array of lists from store in a constant called stateLists
   const stateLists = useSelector((state) => state.reducer.lists)
@@ -25,20 +26,17 @@ const List = (props) => {
 
   // define the addTask functionality that will trigger on button click
   const addTask = () => {
-    arrOfTasks.push(
-      <Task 
-        title=''
-        description=''
-        assignment=''
-        currentList=''
-      />
-    )
+    let listIndex;
+    for (let i = 0; i < stateLists.length; i++) {
+      if (stateLists[i].id === props.id) listIndex = i;
+    }
+    dispatch(addTask(listIndex));
   }
 
   // define the deleteList functionality that will trigger on button click
   const deleteList = () => {
     const updatedList = stateLists.filter(list => list.id !== props.id);
-    dispatch(actions.updateLists(updatedList));
+    dispatch(deleteList(updatedList));
   }
 
   // render the array of tasks and buttons

@@ -1,17 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { useDispatch } from 'react-redux'
 
-
+const dispatch = useDispatch();
 const initialState = { lists: [] };
-const findInitialState = createAsyncThunk('lists/fetchLists', async () => {
-  const fetchedState = await fetch('/home')
-    .then(results => results.json())
-    .then (data => {
-      console.log(data);
-      return data;
-    })
-    .catch(err => {
-      console.log(err)
-    })
+export const findInitialState = createAsyncThunk('lists/fetchLists', async () => {
+
+  const fetchedState = await axios.get('/home');
+    // .then(results => results)
+    // .catch(err => console.log(err));
+
   return fetchedState;
 })
 
@@ -33,12 +31,21 @@ const listsSlice = createSlice({
   name: 'lists',
   initialState,
   reducer: {
+    // action payload: newListId, fetched in the corresponding thunk
     createList(state, action) {
-      state.lists.push(blankList);
+      state.lists.push({...blankList, _id: action.payload});
     },
+    // TD - I don't think updateEmptyList is necessary
+    /*
+    updateEmptyList(state, action){
+      axios.post('/updateEmptyArray', {})
+    },
+    */
+    // action payload: updated lists array 
     deleteList(state, action) {
       state.lists = action.payload;
     },
+    // action payload: 
     addTask(state, action) {
       state.lists[action.payload].tasks.push(blankTask);
     },
@@ -70,6 +77,76 @@ const listsSlice = createSlice({
       })
   }
 })
+
+export const thunks = {
+
+  createListThunk(){
+    console.log('in createListThunk')
+    return (state, action) => {
+      axios.post('/createList',{})
+        .then(response => dispatch(listsSlice.reducer.createList(response)))
+    }
+  },
+  
+// updateEmptyListThunk(){
+//   return async (state, action) => {
+//     axios.post('/updateEmptList', {_id: 'test', title: 'title'})
+//   }
+// },
+
+// deleteListThunk() {
+//   return async (state, action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dispatch(deleteList(listIndex));
+//     axios.post('/deleteList',{_id:action.payload._id, list:payload.list})
+//   }
+// },
+// //edit action payload here
+// addTaskThunk(listIndexAndId) {
+//   return (state, action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dispatch(addTask(listIndex));
+//     axios.post('/createAndAddTask', { _id: listId, task: '' })
+//     .then(response => {
+//       if (response.status !== 200) return 'Error in addTaskThunk'
+//     });
+//   }
+// },
+// // **edit considering the necessary inputs and outputs for server requests
+// deleteTaskThunk(listIndexAndId,){
+//   return async (state, action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dipatch(deleteTask(listId));
+//     axios.post('/deleteTask', { _id: action.payload._id, task: action.payload.task })
+//   }
+// },
+// //edit later
+// saveTaskThunk(listIndexAndId) { 
+//   return async (state,action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dipatch(saveTask(listId));
+//     axios.post('/saveTask', { _id: listId, task: action.payload })
+  
+//   }
+// },
+// //edit later
+// moveTaskThunk() { 
+//   return async (state, action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dipatch(deleteTask(listId));
+//     axios.post('/moveTask', { idOriginal: action.payload.idOriginal, idNew: action.payload.idNew, task: action.payload.task})
+//   }
+// },
+
+// extraReducersThunk() { 
+//   return async (state, action) => {
+//     const { listIndex, listId } = listIndexAndId;
+//     dipatch(deleteTask(listId));
+//     axios.post('/editTask', { _id: listId, task: action.payload })
+//   }
+// },
+  
+} 
 
 export const { createList, deleteList, addTask, deleteTask, saveTask, moveTask } = listsSlice.actions;
 export default listsSlice;

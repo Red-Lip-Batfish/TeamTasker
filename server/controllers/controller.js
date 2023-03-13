@@ -36,10 +36,19 @@ const controller = {
 
   async createList(req, res, next) {
     console.log('in createList middleware');
-    const data = await schemas.list.create({ ...req.body });
+    const data = await schemas.list.create({});
     res.locals._id = data._id;
-    console.log(data);
+    // console.log(data);
     next();
+  },
+
+  async updateEmptyList(req, res, next){
+    console.log('in updateEmptyList middleware');
+    const { _id, title} = req.body
+    const original = await schemas.list.update({_id}, {title})
+    next();
+
+
   },
 
   async deleteList(req, res, next) {
@@ -67,11 +76,15 @@ const controller = {
     next();
   },
 
-  // async editTask(req, res, next) {
-  //   const { _id, task, newTask } = req.body;
-
-  //   const list = 
-  // },
+  async editTask(req, res, next) {
+    const { _id, task, newTask } = req.body;
+    const list = schemas.list.findOne({_id});
+    list.taskArr.forEach((el) => {
+      if(el.task === task){
+        el.task = newTask;
+      }
+    })
+  },
 
   async deleteTask(req, res, next) {
     const { _id, task } = req.body;
