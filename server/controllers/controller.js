@@ -36,14 +36,15 @@ const controller = {
 
   async createList(req, res, next) {
     console.log('in createList middleware');
-    const data = await schemas.list.create({});
+    const data = await schemas.list.create({title: ' '});
+    console.log(data)
     res.locals._id = data._id;
     // console.log(data);
     next();
   },
 
-  async updateEmptyList(req, res, next){
-    console.log('in updateEmptyList middleware');
+  async saveList(req, res, next){
+    console.log('in saveList middleware');
     const { _id, title} = req.body
     const original = await schemas.list.update({_id}, {title})
     next();

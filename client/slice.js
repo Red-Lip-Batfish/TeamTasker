@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 
-const dispatch = useDispatch();
-const initialState = { lists: [] };
+
+export const initialState = { lists: [] };
 export const findInitialState = createAsyncThunk('lists/fetchLists', async () => {
 
   const fetchedState = await axios.get('/home');
@@ -17,7 +17,7 @@ const blankList = {
   title: '',
   tasks: [],
   team: '',
-  id: undefined,
+  _id: undefined,
 }
 
 const blankTask = {
@@ -30,17 +30,21 @@ const blankTask = {
 const listsSlice = createSlice({
   name: 'lists',
   initialState,
-  reducer: {
+  reducers: {
     // action payload: newListId, fetched in the corresponding thunk
     createList(state, action) {
+      console.log('in createList action');
       state.lists.push({...blankList, _id: action.payload});
     },
-    // TD - I don't think updateEmptyList is necessary
+    // TD - I don't think updateEmptyList is necessary, PK - same.
     /*
     updateEmptyList(state, action){
       axios.post('/updateEmptyArray', {})
     },
     */
+    saveList(state, action) {
+      state.lists
+    },
     // action payload: updated lists array 
     deleteList(state, action) {
       state.lists = action.payload;
@@ -82,17 +86,18 @@ export const thunks = {
 
   createListThunk(){
     console.log('in createListThunk')
-    return (state, action) => {
-      axios.post('/createList',{})
-        .then(response => dispatch(listsSlice.reducer.createList(response)))
+    return (dispatch) => {
+      axios.post('/createList')
+        .then(response => dispatch(createList(response.data)))
     }
   },
   
-// updateEmptyListThunk(){
-//   return async (state, action) => {
-//     axios.post('/updateEmptList', {_id: 'test', title: 'title'})
-//   }
-// },
+saveListThunk(){
+  return (dispatch) => {
+    axios.post('/saveList', {_id: 'test', title: 'title'})
+      // .then(response => dispatch(saveList(response.data)))
+  }
+},
 
 // deleteListThunk() {
 //   return async (state, action) => {
@@ -101,9 +106,10 @@ export const thunks = {
 //     axios.post('/deleteList',{_id:action.payload._id, list:payload.list})
 //   }
 // },
+
 // //edit action payload here
 // addTaskThunk(listIndexAndId) {
-//   return (state, action) => {
+//   return (dispatch) => {
 //     const { listIndex, listId } = listIndexAndId;
 //     dispatch(addTask(listIndex));
 //     axios.post('/createAndAddTask', { _id: listId, task: '' })

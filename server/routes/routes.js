@@ -24,7 +24,7 @@ router.post('/deleteList', controller.deleteList, (req, res) => {
   res.status(200).json('list deleted');
 });
 
-router.post('updateEmptyList', controller.updateEmptyList, controller.createAndAddTask, (req, res) =>{
+router.post('saveList', controller.saveList, controller.createAndAddTask, (req, res) =>{
   res.status(200).json('empty list updated');
 })
 

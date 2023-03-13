@@ -8,7 +8,7 @@ const List = (props) => {
   const dispatch = useDispatch();
 
   // capture the array of lists from store in a constant called stateLists
-  const stateLists = useSelector((state) => state.reducer.lists)
+  const stateLists = useSelector((state) => state.lists)
 
   // populate an array of tasks with the tasks in the current list's tasks array (from props)
   const arrOfTasks = [];
@@ -39,13 +39,23 @@ const List = (props) => {
     dispatch(deleteList(updatedList));
   }
 
+  const saveList = () => {}
+
   // render the array of tasks and buttons
   return (
-    <div>
-      <h2>{props.title}</h2>
-      {arrOfTasks}
+    <div className='list'>
+      <div>Title
+        <input defaultValue={props.title}></input>
+      </div>
+      <div>Team
+        <input defaultValue={props.team}></input>
+      </div>
+      <div>Tasks
+        {arrOfTasks}
+      </div>
       <button onClick={addTask}>Add Task</button>
       <button onClick={deleteList}>Delete List</button>
+      <button onClick={saveList}>Save List</button>
     </div>
   )
 }
