@@ -31,15 +31,15 @@ const personSchema = new Schema({
 
 const people = mongoose.model('people', personSchema);
 
-// const taskArrSchema = new Schema({
-//   task: {
-//     type: String,
-//     required: true,
-//   },
-//   user: String,
-// });
+const taskArrSchema = new Schema({
+  task: {
+    type: String,
+    required: true,
+  },
+  user: String,
+});
 
-// const taskArr = mongoose.model('taskArr', taskArrSchema);
+const taskArr = mongoose.model('taskArr', taskArrSchema);
 
 const listSchema = new Schema({
   title: {
@@ -54,7 +54,7 @@ const listSchema = new Schema({
 
 const list = mongoose.model('list', listSchema);
 
-module.exports = { people, list };
+module.exports = { people, list, taskArr };
 
 /*
 
