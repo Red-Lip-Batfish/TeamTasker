@@ -51,7 +51,6 @@ const listSchema = new Schema({
     type: Array,
     default: [],
   },
-  description: String,
   team: String
 });
 

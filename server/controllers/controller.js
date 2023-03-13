@@ -1,5 +1,6 @@
 const schemas = require('../models/models.js');
 
+//Good Luck//
 const controller = {
   async login(req, res, next) {
     console.log('in login middleware');
@@ -45,8 +46,9 @@ const controller = {
 
   async saveList(req, res, next){
     console.log('in saveList middleware');
-    const { _id, title} = req.body
-    const original = await schemas.list.update({_id}, {title})
+    const {title, team, tasks, _id } = req.body
+    const updated = await schemas.list.updateOne({ _id }, { title, team, taskArr: tasks }, { new: true });
+    res.locals.updated = updated;
     next();
 
 

@@ -18,7 +18,7 @@ const Toolbar = (props) => {
       <div className = 'right align'>
         <button onClick={() => dispatch(thunks.createListThunk())}>Add List</button>
         <button>Delete All Tasks</button>
-        <button onClick={navigate({pathname: '/'})}>Sign Out</button>
+        <button onClick={() => navigate('/')}>Sign Out</button>
       </div>
     </div>
   )

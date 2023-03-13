@@ -36,17 +36,18 @@ const listsSlice = createSlice({
       console.log('in createList action');
       state.lists.push({...blankList, _id: action.payload});
     },
-    // TD - I don't think updateEmptyList is necessary, PK - same.
-    /*
-    updateEmptyList(state, action){
-      axios.post('/updateEmptyArray', {})
-    },
-    */
+    // action payload: list object 
     saveList(state, action) {
-      state.lists
+      let listIndex;
+      for (let i = 0; i < state.lists.length; i++) {
+        if (state.lists[i]._id === action.payload._id) listIndex = i;
+      }
+      state.lists.splice(listIndex, 1);
+      state.lists.push(action.payload);
     },
     // action payload: updated lists array 
     deleteList(state, action) {
+      
       state.lists = action.payload;
     },
     // action payload: 
@@ -92,16 +93,16 @@ export const thunks = {
     }
   },
   
-saveListThunk(){
+saveListThunk(listDetails){
   return (dispatch) => {
-    axios.post('/saveList', {_id: 'test', title: 'title'})
-      // .then(response => dispatch(saveList(response.data)))
+    axios.post('/saveList', {listDetails})
+      .then(response => dispatch(saveList(response)))
   }
 },
 
-// deleteListThunk() {
-//   return async (state, action) => {
-//     const { listIndex, listId } = listIndexAndId;
+// deleteListThunk(listDetails) {
+//   return  (dispatch) => {
+//     const { listIndex, listId } = listDetails;
 //     dispatch(deleteList(listIndex));
 //     axios.post('/deleteList',{_id:action.payload._id, list:payload.list})
 //   }
@@ -154,5 +155,5 @@ saveListThunk(){
   
 } 
 
-export const { createList, deleteList, addTask, deleteTask, saveTask, moveTask } = listsSlice.actions;
+export const { createList, deleteList, addTask, deleteTask, saveTask, moveTask, saveList } = listsSlice.actions;
 export default listsSlice;

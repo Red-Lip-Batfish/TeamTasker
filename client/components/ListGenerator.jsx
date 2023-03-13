@@ -17,14 +17,14 @@ const ListGenerator = (props) => {
       title={currentList.title} 
       tasks={currentList.tasks}
       team={currentList.team}
-      id={currentList._id}
+      _id={currentList._id}
     />
     );
   }
 
   // render the array of lists
   return (
-    <div>
+    <div className='listContainer'>
       {arrOfLists}
     </div>
   )
