@@ -31,14 +31,14 @@ const List = (props) => {
   const addTask = () => {
     let listIndex;
     for (let i = 0; i < stateLists.length; i++) {
-      if (stateLists[i].id === props.id) listIndex = i;
+      if (stateLists[i]._id === props._id) listIndex = i;
     }
     dispatch(addTask(listIndex));
   }
 
   // define the deleteList functionality that will trigger on button click
-  const deleteList = () => {
-    const updatedList = stateLists.filter(list => list.id !== props.id);
+  const deleteLists = () => {
+    const updatedList = stateLists.filter(list => list._id !== props._id);
     dispatch(deleteList(updatedList));
   }
 
@@ -56,7 +56,7 @@ const List = (props) => {
       </div>
       <div className='buttonRow'>
         <button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>Add Task</button>
-        <button onClick={deleteList}>Delete List</button>
+        <button onClick={deleteLists}>Delete List</button>
         <button onClick={() => dispatch(thunks.saveListThunk({title: props.title, team: props.team, _id: props._id, tasks: props.tasks}))}>Save List</button>
       </div>
     </div>
