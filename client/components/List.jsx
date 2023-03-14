@@ -31,7 +31,7 @@ const List = (props) => {
   const addTask = () => {
     let listIndex;
     for (let i = 0; i < stateLists.length; i++) {
-      if (stateLists[i].id === props.id) listIndex = i;
+      if (stateLists[i]._id === props._id) listIndex = i;
     }
     dispatch(addTask(listIndex));
   }
