@@ -4,7 +4,7 @@ mongoose.pluralize(null);
 const Schema = mongoose.Schema;
 
 const MONGO_URI =
-  'mongodb+srv://zacharythejesus:MQ5qEWGEEZgX8nLj@pm-app.k8txydl.mongodb.net/?retryWrites=true&w=majority';
+  'mongodb+srv://project:12345@todocalendar.7gp4otz.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
   .connect(MONGO_URI, {
@@ -14,7 +14,7 @@ mongoose
     // sets the name of the DB that our collections are part of
     dbName: 'jobs',
   })
-  .then(() => console.log('Connected to Mongo DB'))
+  .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
 
 const personSchema = new Schema({
