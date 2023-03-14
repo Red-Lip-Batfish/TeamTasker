@@ -38,7 +38,7 @@ const List = (props) => {
 
   // define the deleteList functionality that will trigger on button click
   const deleteLists = () => {
-    const updatedList = stateLists.filter(list => list.id !== props.id);
+    const updatedList = stateLists.filter(list => list._id !== props._id);
     dispatch(deleteList(updatedList));
    
    
