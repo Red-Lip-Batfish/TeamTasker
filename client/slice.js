@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-export const initialState = { lists: [] };
+const initialState = { lists: [] };
 // export const findInitialState = createAsyncThunk(
 // 	'lists/fetchLists',
 // 	async () => {
@@ -36,9 +36,10 @@ const listsSlice = createSlice({
 	reducers: {
 		fetchLists(state, action) {
 			console.log('inside generate page');
-			console.log(action.payload);
-			state.lists.push(...action.payload);
-		},
+			console.log('huuu2u', action.payload);
+			state.lists.push(action.payload);
+      // console.log('huuuu', state.lists);
+    },
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {
 			console.log('in createList action');
@@ -189,4 +190,4 @@ export const {
 	saveList,
 	fetchLists,
 } = listsSlice.actions;
-export default listsSlice;
+export default listsSlice.reducer
