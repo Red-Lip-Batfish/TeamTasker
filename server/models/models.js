@@ -27,6 +27,9 @@ const personSchema = new Schema({
     type: String,
     required: true,
   },
+  lists: {
+    type: Array
+  }
 });
 
 const people = mongoose.model('people', personSchema);

@@ -5,7 +5,7 @@ import { apiSlice } from './api.js';
 
 const store = configureStore({
 	reducer: {
-		lists: listsSlice.reducer,
+		lists: listsSlice,
 	}
 	
 });
