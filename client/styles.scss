@@ -1,24 +1,33 @@
-
+$superLightBlue: #e1e6e9;
+$teal: rgb(30, 177, 188);
 
 body {
 	font-family: "Roboto", sans-serif;
-	background-color: #e1e6e9;
-	margin: 0px;
-	padding: 0px
+	background-color: $superLightBlue;
  }
 
+ button {
+	border-radius: 5px;
+	background-color: $teal;
+	color: white;
+	border: 1px solid white;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 5px;
+	margin: 5px;
 
-	h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Roboto", sans-serif; }
-
-
-  
+	&:hover{
+		background-color: white;
+		color: $teal;
+		cursor: pointer;
+		border: 1px solid $teal;
+	}
+ }
 
 .login{
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
+	margin: auto;
 	border: 1px solid gray;
 	border-radius: 5px;
 	width: 400px;
@@ -28,22 +37,10 @@ body {
 	justify-content: center;
 	align-items: center;
 	
-	
 	button{
 		margin-top: 20px;
 		margin-bottom: 20px;
 		padding: 20px 100px;
-		border-radius: 5px;
-		border: none;
-		background-color: rgb(30, 177, 188);
-		color: white;
-
-		&:hover{
-			background-color: white;
-			color: rgb(30, 177, 188);
-			cursor: pointer;
-			border: 1px solid rgb(30, 177, 188);
-		}
 	}
 
 	input{
@@ -53,13 +50,11 @@ body {
 		width: 75%;
 		height: 30px;
 		padding-bottom: 10px;
-
-		}
-
-	a{
-		color: rgb(30, 177, 188);
 	}
 
+	a {
+		color: $teal;
+	}
 }
 
 .toolBar{
@@ -67,26 +62,10 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
-	background-color: rgb(30, 177, 188);
+	background-color: $teal;
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
-
-	button{
-		border: 1px solid white;
-		background-color: rgb(30, 177, 188);
-		color: white;
-		font-size: 15px;
-		font-weight: bold;
-		padding: 5px;
-		margin: 5px;
-
-		&:hover{
-			background-color: white;
-			color: rgb(30, 177, 188);
-			cursor: pointer;
-		}
-	}
 }
 
 .listContainer{
@@ -107,29 +86,11 @@ body {
 	input{
 		margin: 5px;
 	}
+
 	.buttonRow{
 		display: flex;
 		justify-content: space-evenly;
 		width: 100%;
-
 	}
-	button{
-		border: none;
-		background-color: rgb(30, 177, 188);
-		color: white;
-		font-size: 15px;
-		font-weight: bold;
-		padding: 5px;
-		margin: 5px;
-		border-radius: 5px;
-
-		&:hover{
-			background-color: white;
-			color: rgb(30, 177, 188);
-			cursor: pointer;
-			border: 1px solid rgb(30, 177, 188);
-		}
-	}
-	
 }
 
