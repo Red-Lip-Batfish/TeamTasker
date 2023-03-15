@@ -56,6 +56,7 @@ const listsSlice = createSlice({
 		// action payload: updated lists array
 		deleteList(state, action) {
 			console.log('delete action payload', action.payload);
+			console.log('action',action)
 			state.lists = action.payload;
 		},
 		// action payload:

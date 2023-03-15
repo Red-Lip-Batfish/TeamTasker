@@ -11,7 +11,9 @@ const ListGenerator = (props) => {
 	});
 
 	// render the array of lists
-	return <div className='listContainer'>{arrOfLists}</div>;
+	return <div className='listContainer'>
+		{arrOfLists}
+		</div>;
 };
 
 export default ListGenerator;
