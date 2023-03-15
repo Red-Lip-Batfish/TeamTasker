@@ -3,18 +3,18 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
 export const initialState = { lists: [] };
-export const findInitialState = createAsyncThunk(
-	'lists/fetchLists',
-	async () => {
-		const fetchedState = await (
-			await axios.get('/home')
-		).then((data) => console.log('fetchedState'));
-		// .then(results => results)
-		// .catch(err => console.log(err));
-		console.log(fetchedState);
-		return fetchedState;
-	}
-);
+// export const findInitialState = createAsyncThunk(
+// 	'lists/fetchLists',
+// 	async () => {
+// 		const fetchedState = await (
+// 			await axios.get('/home')
+// 		).then((data) => console.log('fetchedState'));
+// 		// .then(results => results)
+// 		// .catch(err => console.log(err));
+// 		console.log(fetchedState);
+// 		return fetchedState;
+// 	}
+// );
 
 const blankList = {
 	title: '',
@@ -95,15 +95,15 @@ const listsSlice = createSlice({
 			);
 		},
 	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(findInitialState.pending, (state, action) => {
-				state.status = 'loading';
-			})
-			.addCase(findInitialState.fulfilled, (state, action) => {
-				state.lists = action.payload;
-			});
-	},
+	// extraReducers: (builder) => {
+	// 	builder
+	// 		.addCase(findInitialState.pending, (state, action) => {
+	// 			state.status = 'loading';
+	// 		})
+	// 		.addCase(findInitialState.fulfilled, (state, action) => {
+	// 			state.lists = action.payload;
+	// 		});
+	// },
 });
 
 export const thunks = {
