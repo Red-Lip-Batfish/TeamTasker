@@ -3,6 +3,8 @@ import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
+import axios from 'axios';
+
 
 const List = ({ title, tasks, _id }) => {
 	// assign the evaluated result of useDispatch to a constant, dispatch
@@ -46,6 +48,12 @@ const List = ({ title, tasks, _id }) => {
 			console.log('updatedList',updatedList)
 		
 		dispatch(deleteList(updatedList));
+
+		console.log('running after dispatch')
+		axios.post('/deleteList',{
+			_id: id
+		})
+
 	};
 	
 
