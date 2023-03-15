@@ -4,7 +4,7 @@ mongoose.pluralize(null);
 const Schema = mongoose.Schema;
 
 const MONGO_URI =
-  'mongodb+srv://project:12345@todocalendar.7gp4otz.mongodb.net/?retryWrites=true&w=majority';
+  'mongodb+srv://project:12345@todocalendar.dvd0e.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
   .connect(MONGO_URI, {

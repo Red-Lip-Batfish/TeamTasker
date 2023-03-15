@@ -11,15 +11,17 @@ const Login = (props) => {
   const login = async () => {
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
-
-    const requestBody = { username, password };
-    const data = await axios.post('/login', requestBody)
-      .then((response) => {
-        if(response.status === 200) {
-          navigate({
-            pathname: '/home',
-            search: `?username=${username}`});
-        }});
+    navigate({
+      pathname:'/home'
+    })
+    // const requestBody = { username, password };
+    // const data = await axios.post('/login', requestBody)
+    //   .then((response) => {
+    //     if(response.status === 200) {
+    //       navigate({
+    //         pathname: '/home',
+    //         search: `?username=${username}`});
+    //     }});
 }
 
   // render username and password inputs, login and signup buttons
