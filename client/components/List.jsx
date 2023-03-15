@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 
-
 const List = (props) => {
 	// assign the evaluated result of useDispatch to a constant, dispatch
 	const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const List = (props) => {
 		const updatedList = stateLists.filter((list) => list._id !== props._id);
 		dispatch(deleteList(updatedList));
 	};
-
 
 	// render the array of tasks and buttons
 	return (
