@@ -61,26 +61,24 @@ const List = ({ title, tasks, _id }) => {
 				ID:
 				{_id}
 			</div>
-			{/* <div className='buttonRow'>
-				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
-					Add Task
-				</button>
-				<button onClick={deleteLists}>Delete List</button>
+			<div className='buttonRow'>
+				<button onClick={() => dispatch(addTask(_id))}>Add Task</button>
+				<button onClick={() => deleteLists()}>Delete List</button>
 				<button
 					onClick={() =>
 						dispatch(
 							thunks.saveListThunk({
-								title: props.title,
-								team: props.team,
-								_id: props._id,
-								tasks: props.tasks,
+								title: title,
+								// team: props.team,
+								_id: _id,
+								tasks: tasks,
 							})
 						)
 					}
 				>
 					Save List
 				</button>
-			</div> */}
+			</div>
 		</div>
 	);
 };
