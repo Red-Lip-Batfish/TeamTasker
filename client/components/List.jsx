@@ -38,16 +38,16 @@ const List = ({ title, tasks, _id }) => {
 
 	// define the deleteList functionality that will trigger on button click
 	const deleteLists = (id) => {
-		console.log('stateLists',stateLists)
+		console.log('stateLists', stateLists);
 		const updatedList = stateLists.filter((list) => {
-			console.log('list._id',list._id)
-			console.log('props._id', id)
-			return list._id !== id});
-			console.log('updatedList',updatedList)
-		
+			console.log('list._id', list._id);
+			console.log('props._id', id);
+			return list._id !== id;
+		});
+		console.log('updatedList', updatedList);
+
 		dispatch(deleteList(updatedList));
 	};
-	
 
 	// render the array of tasks and buttons
 	return (
@@ -83,7 +83,7 @@ const List = ({ title, tasks, _id }) => {
 				>
 					Save List
 				</button>
-			</div>
+			</div> */}
 		</div>
 	);
 };
