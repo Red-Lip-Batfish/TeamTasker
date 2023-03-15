@@ -19,7 +19,6 @@ export const initialState = { lists: [] };
 const blankList = {
 	title: '',
 	tasks: [],
-	team: '',
 	_id: undefined,
 };
 
