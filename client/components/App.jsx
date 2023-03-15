@@ -7,14 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchLists } from '../slice.js';
 const App = (props) => {
 	// this should update state from the DB when app renders
-	const dispatch = useDispatch();
-	// store.dispatch(findInitialState());
-	// const lists = useSelector((state) => state.lists);
-	useEffect(() => {
-		fetch('/home')
-			.then((data) => data.json())
-			.then((data) => dispatch(fetchLists(data)));
-	}, []);
+	// const dispatch = useDispatch();
+	// // store.dispatch(findInitialState());
+	// // const lists = useSelector((state) => state.lists);
+	// useEffect(() => {
+	// 	fetch('/home')
+	// 		.then((data) => data.json())
+	// 		.then((data) => dispatch(fetchLists(data)));
+	// }, []);
 
 	return (
 		<div>
