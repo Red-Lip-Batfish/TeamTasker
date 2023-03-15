@@ -50,10 +50,6 @@ const List = ({ title, tasks, _id }) => {
 				{/* <input defaultValue={title}></input> */}
 			</div>
 			<div>
-				Team:
-				{/* <input defaultValue={props.team}></input> */}
-			</div>
-			<div>
 				Tasks:
 				{tasks}
 			</div>
@@ -71,7 +67,6 @@ const List = ({ title, tasks, _id }) => {
 						dispatch(
 							thunks.saveListThunk({
 								title: props.title,
-								team: props.team,
 								_id: props._id,
 								tasks: props.tasks,
 							})
