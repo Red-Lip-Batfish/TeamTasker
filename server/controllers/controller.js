@@ -46,10 +46,10 @@ const controller = {
 
 	async saveList(req, res, next) {
 		console.log('in saveList middleware');
-		const { title, team, tasks, _id } = req.body;
+		const { title, tasks, _id } = req.body;
 		const updated = await schemas.list.updateOne(
 			{ _id },
-			{ title, team, taskArr: tasks },
+			{ title, taskArr: tasks },
 			{ new: true }
 		);
 		res.locals.updated = updated;

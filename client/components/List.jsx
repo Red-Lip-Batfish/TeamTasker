@@ -37,10 +37,17 @@ const List = ({ title, tasks, _id }) => {
 	// };
 
 	// define the deleteList functionality that will trigger on button click
-	// const deleteLists = () => {
-	// 	const updatedList = stateLists.filter((list) => list._id !== props._id);
-	// 	dispatch(deleteList(updatedList));
-	// };
+	const deleteLists = (id) => {
+		console.log('stateLists',stateLists)
+		const updatedList = stateLists.filter((list) => {
+			console.log('list._id',list._id)
+			console.log('props._id', id)
+			return list._id !== id});
+			console.log('updatedList',updatedList)
+		
+		dispatch(deleteList(updatedList));
+	};
+	
 
 	// render the array of tasks and buttons
 	return (
@@ -50,10 +57,6 @@ const List = ({ title, tasks, _id }) => {
 				{/* <input defaultValue={title}></input> */}
 			</div>
 			<div>
-				Team:
-				{/* <input defaultValue={props.team}></input> */}
-			</div>
-			<div>
 				Tasks:
 				{tasks}
 			</div>
@@ -61,17 +64,19 @@ const List = ({ title, tasks, _id }) => {
 				ID:
 				{_id}
 			</div>
-			<div className='buttonRow'>
-				<button onClick={() => dispatch(addTask(_id))}>Add Task</button>
-				<button onClick={() => deleteLists()}>Delete List</button>
+			<button onClick={() => deleteLists(_id)}>Delete List</button>
+			{/* <div className='buttonRow'>
+				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
+					Add Task
+				</button>
+				<button onClick={deleteLists}>Delete List</button>
 				<button
 					onClick={() =>
 						dispatch(
 							thunks.saveListThunk({
-								title: title,
-								// team: props.team,
-								_id: _id,
-								tasks: tasks,
+								title: props.title,
+								_id: props._id,
+								tasks: props.tasks,
 							})
 						)
 					}
