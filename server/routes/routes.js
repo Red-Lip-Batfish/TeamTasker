@@ -29,7 +29,7 @@ router.post('/saveList', controller.saveList, (req, res) =>{
 })
 
 router.post('/createAndAddTask', controller.createAndAddTask, (req, res) => {
-  res.status(200).json('task created');
+  res.status(200).json('task created') //.json('task created');
 });
 
 router.post('/editTask', controller.editTask, (req, res) => {
