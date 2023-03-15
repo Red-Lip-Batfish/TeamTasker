@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 
+
 const List = (props) => {
   // assign the evaluated result of useDispatch to a constant, dispatch
   const dispatch = useDispatch();
@@ -50,9 +51,9 @@ const List = (props) => {
       <div>Title:
         <input defaultValue={props.title}></input>
       </div>
-      <div>Team:
+      {/* <div>Team:
         <input defaultValue={props.team}></input>
-      </div>
+      </div> */}
       <div>Tasks:
         {arrOfTasks}
       </div>
