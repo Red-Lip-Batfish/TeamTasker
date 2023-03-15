@@ -54,7 +54,6 @@ const listSchema = new Schema({
     type: Array,
     default: [],
   },
-  team: String
 });
 
 const list = mongoose.model('list', listSchema);

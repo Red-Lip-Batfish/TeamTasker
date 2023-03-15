@@ -3,6 +3,8 @@ import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
+import axios from 'axios';
+
 
 const List = ({ title, tasks, _id }) => {
 	// assign the evaluated result of useDispatch to a constant, dispatch
@@ -37,10 +39,23 @@ const List = ({ title, tasks, _id }) => {
 	// };
 
 	// define the deleteList functionality that will trigger on button click
-	// const deleteLists = () => {
-	// 	const updatedList = stateLists.filter((list) => list._id !== props._id);
-	// 	dispatch(deleteList(updatedList));
-	// };
+	const deleteLists = (id) => {
+		console.log('stateLists',stateLists)
+		const updatedList = stateLists.filter((list) => {
+			console.log('list._id',list._id)
+			console.log('props._id', id)
+			return list._id !== id});
+			console.log('updatedList',updatedList)
+		
+		dispatch(deleteList(updatedList));
+
+		console.log('running after dispatch')
+		axios.post('/deleteList',{
+			_id: id
+		})
+
+	};
+	
 
 	// render the array of tasks and buttons
 	return (
@@ -50,10 +65,6 @@ const List = ({ title, tasks, _id }) => {
 				{/* <input defaultValue={title}></input> */}
 			</div>
 			<div>
-				Team:
-				{/* <input defaultValue={props.team}></input> */}
-			</div>
-			<div>
 				Tasks:
 				{tasks}
 			</div>
@@ -61,6 +72,7 @@ const List = ({ title, tasks, _id }) => {
 				ID:
 				{_id}
 			</div>
+			<button onClick={() => deleteLists(_id)}>Delete List</button>
 			{/* <div className='buttonRow'>
 				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
 					Add Task
@@ -71,7 +83,6 @@ const List = ({ title, tasks, _id }) => {
 						dispatch(
 							thunks.saveListThunk({
 								title: props.title,
-								team: props.team,
 								_id: props._id,
 								tasks: props.tasks,
 							})
