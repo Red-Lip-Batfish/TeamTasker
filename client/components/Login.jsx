@@ -22,6 +22,7 @@ const Login = (props) => {
 		    if(res.status === 200) {
 				// console.log(res.data[0].username)
 				dispatch(getUsername(res.data[0].username))
+				console.log(res.data[0].lists)
 				dispatch(fetchLists(res.data[0].lists))
 				// console.log('res', res.data[0].lists)
 		      navigate({

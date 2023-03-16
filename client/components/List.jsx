@@ -4,31 +4,42 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
-import StoredList from './storedList.jsx';
 
 const List = ({ title, tasks, _id }) => {
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
   const [submit, setSubmit] = useState(false); // Add submit state
   const stateLists = useSelector((state) => state.lists.lists);
+  const username = useSelector((state) => state.lists.username)
 
   const onChange = (e) => {
     setTask(e.target.value);
   };
 
-  const saveTitle = (e) => {
+  const saveTitle = async (e) => {
     e.preventDefault();
     setSubmit(true); // Update submit state to true
-  };
+	console.log(username)
+	console.log({tasks})
+	console.log(title)
+	// dispatch(thunks.saveMadeListThunk())
+	const data = await axios.post('/saveUserList', {title: task, tasks: tasks, _id: _id, username: username})
+		.then((res) => {
+			if(res.status === 200) {
+				console.log(res)
+			}
+		})
+  
+};
 
-  useEffect(() => {
-    // Re-render the component when submit changes
-    // Perform any actions that need to be performed when submit is true here
-    if (submit) {
-      console.log('Submit is true!');
-      // Perform any actions that need to be performed when submit is true
-    }
-  }, [submit]);
+//   useEffect(() => {
+//     // Re-render the component when submit changes
+//     // Perform any actions that need to be performed when submit is true here
+//     if (submit) {
+//       console.log('Submit is true!');
+//       // Perform any actions that need to be performed when submit is true
+//     }
+//   }, [submit]);
 
 	// populate an array of tasks with the tasks in the current list's tasks array (from props)
 	// const arrOfTasks = [];
