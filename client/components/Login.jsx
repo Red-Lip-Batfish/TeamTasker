@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { fetchLists } from '../slice';
+import { fetchLists, getUsername } from '../slice';
 // define Login component
 const Login = (props) => {
 	const navigate = useNavigate();
@@ -20,7 +20,8 @@ const Login = (props) => {
 		const data = await axios.post('/login', requestBody)
 		  .then((res) => {
 		    if(res.status === 200) {
-				console.log('hi', res.data[0].lists)
+				// console.log(res.data[0].username)
+				dispatch(getUsername(res.data[0].username))
 				dispatch(fetchLists(res.data[0].lists))
 				// console.log('res', res.data[0].lists)
 		      navigate({
