@@ -36,6 +36,7 @@ const listsSlice = createSlice({
 		fetchLists(state, action) {
 			state.lists.push(action.payload);
     },
+		
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {
 			console.log('in createList action');
