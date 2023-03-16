@@ -70,9 +70,9 @@ const controller = {
 	},
 
 	async deleteList(req, res, next) {
-		const { _id } = req.body;
+		const { updatedList ,username} = req.body;
 
-		const deleted = await schemas.list.deleteOne({ _id });
+		const deleted = await schemas.people.findOneAndUpdate({username}, {lists: updatedList});
 		console.log(deleted);
 		next();
 	},
