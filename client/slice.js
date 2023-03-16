@@ -18,7 +18,7 @@ const initialState = { lists: [] };
 
 const blankList = {
 	title: '',
-	tasks: [],
+	taskArr: [],
 	_id: undefined,
 	submit: false,
 };
@@ -36,15 +36,15 @@ const listsSlice = createSlice({
 	reducers: {
 		fetchLists(state, action) {
 			state.lists.push(action.payload);
-    },
-		getUsername(state,action) {
-			state['username']= action.payload
+		},
+		getUsername(state, action) {
+			state['username'] = action.payload;
 		},
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {
 			console.log('in createList action');
 			// console.log('action.payload', action.payload)
-			state.lists.push({ ...blankList, _id: action.payload, });
+			state.lists.push({ ...blankList, _id: action.payload });
 		},
 		// action payload: list object
 		saveList(state, action) {
@@ -58,17 +58,17 @@ const listsSlice = createSlice({
 		// action payload: updated lists array
 		deleteList(state, action) {
 			console.log('delete action payload', action.payload);
-			console.log('action',action)
+			console.log('action', action);
 			state.lists = action.payload;
 		},
 		// action payload:
-		addTask(state, action) {
-			console.log('addTask action payload: ', action.payload);
-			let index;
-			for (let i = 0; i < state.lists.length; i++) {
-				if (state.lists[i]._id === action.payload) index = i;
-			}
-			state.lists[index].tasks.push(blankTask);
+		updateLists(state, action) {
+			//expects action.payload to be a new array of lists
+			console.log(
+				'in addTask reducer fn, trying to set state.lists.lists to ',
+				action.payload
+			);
+			state.lists = action.payload;
 		},
 		// payload should be an object with two properties, listIndex and taskIndex
 		// listIndex should be the index of the current list, and taskIndex should be the
@@ -183,7 +183,7 @@ export const thunks = {
 export const {
 	createList,
 	deleteList,
-	addTask,
+	updateLists,
 	deleteTask,
 	saveTask,
 	moveTask,
@@ -191,4 +191,4 @@ export const {
 	fetchLists,
 	getUsername,
 } = listsSlice.actions;
-export default listsSlice.reducer
+export default listsSlice.reducer;
