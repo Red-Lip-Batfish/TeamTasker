@@ -1,18 +1,26 @@
-import React from 'react';
-import Task from './Task.jsx';
+import React, { useState } from 'react';
+// import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
 
-
 const List = ({ title, tasks, _id }) => {
 	// assign the evaluated result of useDispatch to a constant, dispatch
 	const dispatch = useDispatch();
-
+	const [newTask, newTaskName] = useState('');
 	// capture the array of lists from store in a constant called stateLists --> THIS DOESN'T WORK
 	const stateLists = useSelector((state) => state.lists.lists);
-
+	let arrOfTasks = tasks
+		? tasks.map((task) => {
+				return (
+					<div>
+						{task}
+						<br />
+					</div>
+				);
+		  })
+		: [];
 	// populate an array of tasks with the tasks in the current list's tasks array (from props)
 	// const arrOfTasks = [];
 	// console.log('list props: ', props);
@@ -50,11 +58,15 @@ const List = ({ title, tasks, _id }) => {
 
 		dispatch(deleteList(updatedList));
 
-		console.log('running after dispatch')
-		axios.post('/deleteList',{
-			_id: id
-		})
-
+		console.log('running after dispatch');
+		axios.post('/deleteList', {
+			_id: id,
+		});
+	};
+	const addNewTask = (propsObj) => {
+		console.log('trying to add new task with ', propsObj);
+		dispatch(addTask(propsObj));
+		axios.post('/addTask', propsObj);
 	};
 
 	// render the array of tasks and buttons
@@ -62,36 +74,24 @@ const List = ({ title, tasks, _id }) => {
 		<div className='list'>
 			<div>
 				Title:{title}
-				{/* <input defaultValue={title}></input> */}
+				<input id='listTitle' defaultValue={title}></input>
 			</div>
 			<div>
 				Tasks:
-				{tasks}
+				{arrOfTasks}
 			</div>
+			<input
+				id='addNewTask'
+				onChange={(e) => newTaskName(e.target.value)}
+			></input>
+			<button onClick={() => addNewTask({ newTask: newTask, _id: _id })}>
+				Add Task
+			</button>
 			<div>
 				ID:
 				{_id}
 			</div>
 			<button onClick={() => deleteLists(_id)}>Delete List</button>
-			{/* <div className='buttonRow'>
-				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
-					Add Task
-				</button>
-				<button onClick={deleteLists}>Delete List</button>
-				<button
-					onClick={() =>
-						dispatch(
-							thunks.saveListThunk({
-								title: props.title,
-								_id: props._id,
-								tasks: props.tasks,
-							})
-						)
-					}
-				>
-					Save List
-				</button>
-			</div> */}
 		</div>
 	);
 };

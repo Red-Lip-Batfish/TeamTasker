@@ -18,7 +18,7 @@ const initialState = { lists: [] };
 
 const blankList = {
 	title: '',
-	tasks: [],
+	taskArr: [],
 	_id: undefined,
 };
 
@@ -37,8 +37,8 @@ const listsSlice = createSlice({
 			console.log('inside generate page');
 			console.log('huuu2u', action.payload);
 			state.lists.push(action.payload);
-      // console.log('huuuu', state.lists);
-    },
+			// console.log('huuuu', state.lists);
+		},
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {
 			console.log('in createList action');
@@ -57,17 +57,19 @@ const listsSlice = createSlice({
 		// action payload: updated lists array
 		deleteList(state, action) {
 			console.log('delete action payload', action.payload);
-			console.log('action',action)
+			console.log('action', action);
 			state.lists = action.payload;
 		},
 		// action payload:
 		addTask(state, action) {
-			console.log('addTask action payload: ', action.payload);
-			let index;
-			for (let i = 0; i < state.lists.length; i++) {
-				if (state.lists[i]._id === action.payload) index = i;
-			}
-			state.lists[index].taskArr.push(blankTask);
+			const { _id, newTask } = action.payload;
+			const indexOfList = state.lists.filter((list, index) => {
+				if (list._id == _id) {
+					return index;
+				}
+			});
+			console.log(indexOfList);
+			state.lists[indexOfList].taskArr.push(newTask);
 		},
 		// payload should be an object with two properties, listIndex and taskIndex
 		// listIndex should be the index of the current list, and taskIndex should be the
@@ -190,4 +192,4 @@ export const {
 	saveList,
 	fetchLists,
 } = listsSlice.actions;
-export default listsSlice.reducer
+export default listsSlice.reducer;
