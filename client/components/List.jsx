@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Task from './Task.jsx';
+// import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteList } from '../slice.js';
+import { updateLists, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
 
 const List = ({ title, tasks, _id }) => {
 	const dispatch = useDispatch();
-	const [task, setTask] = useState();
+	const [task, setTask] = useState('');
 	const [submit, setSubmit] = useState(false); // Add submit state
 	const stateLists = useSelector((state) => state.lists.lists);
-
+	const username = useSelector((state) => state.lists.username);
 	const onChange = (e) => {
 		setTask(e.target.value);
 	};
@@ -29,30 +29,6 @@ const List = ({ title, tasks, _id }) => {
 		}
 	}, [submit]);
 
-	// populate an array of tasks with the tasks in the current list's tasks array (from props)
-	// const arrOfTasks = [];
-	// console.log('list props: ', props);
-	// console.log('stateLists in list component: ', stateLists);
-	// for (let i = 0; i < props.tasks.length; i++) {
-	// 	const currentTask = props.tasks[i];
-	// 	arrOfTasks.push(
-	// 		<Task
-	// 			title={currentTask.title}
-	// 			description={currentTask.description}
-	// 			assignment={currentTask.assignment}
-	// 			currentList={currentTask.currentList}
-	// 		/>
-	// 	);
-	// }
-
-	// define the addTask functionality that will trigger on button click
-	// const addTask = () => {
-	// 	let listIndex;
-	// 	for (let i = 0; i < stateLists.length; i++) {
-	// 		if (stateLists[i]._id === props._id) listIndex = i;
-	// 	}
-	// 	dispatch(addTask(listIndex));
-	// };
 	const submitList = (id) => {
 		const updatedList = stateLists.filter((list) => {
 			return list._id !== id;
@@ -77,9 +53,17 @@ const List = ({ title, tasks, _id }) => {
 		});
 	};
 	const addNewTask = (propsObj) => {
-		console.log('trying to add new task with ', propsObj);
-		dispatch(addTask(propsObj));
-		axios.post('/addTask', propsObj);
+		const { _id, task } = propsObj;
+		console.log('trying to add new task:', task, 'on list _id:', _id);
+		const cloneOfLists = structuredClone(stateLists);
+		cloneOfLists.forEach((list) => {
+			if (list._id == _id) {
+				console.log('list found:', list);
+				list.taskArr.push(task);
+			}
+		});
+		dispatch(updateLists(cloneOfLists));
+		// axios.post('/addTask', propsObj);
 	};
 
 	useEffect(() => {
@@ -103,13 +87,12 @@ const List = ({ title, tasks, _id }) => {
 			</div>
 			<div>
 				Tasks:
-				{arrOfTasks}
+				{/* {arrOfTasks} */}
 			</div>
-			<input
-				id='addNewTask'
-				onChange={(e) => newTaskName(e.target.value)}
-			></input>
-			<button onClick={() => addNewTask({ newTask: newTask, _id: _id })}>
+			<input id='addNewTask' onChange={(e) => setTask(e.target.value)}></input>
+			<button
+				onClick={() => addNewTask({ task: task, _id: _id, username: username })}
+			>
 				Add Task
 			</button>
 			<div>

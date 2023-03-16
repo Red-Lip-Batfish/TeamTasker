@@ -65,15 +65,17 @@ const controller = {
 	},
 
 	async addTask(req, res, next) {
-		const { _id, newTask } = req.body;
-		await schemas.list.findOne({ _id: _id }).then((doc) => {
+		const { _id, task, username } = req.body;
+		await schemas.User.findOne({ username: username }).then((doc) => {
 			if (doc) {
-				console.log('posts document found in db matching _id');
-				doc.taskArr.push(newTask);
-				console.log('try to push newTask');
-				doc.save();
-				console.log('try to save doc');
-				res.status(200).json(doc);
+				console.log('user document found in db matching username');
+				// //then find list by _id
+				// //then push task into found list
+				// doc.foundList.taskArr.push(task);
+				// console.log('try to push newTask');
+				// doc.save();
+				// console.log('try to save doc');
+				// res.status(200).json(doc);
 			}
 			return next();
 		});

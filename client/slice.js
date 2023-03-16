@@ -62,15 +62,13 @@ const listsSlice = createSlice({
 			state.lists = action.payload;
 		},
 		// action payload:
-		addTask(state, action) {
-			const { _id, newTask } = action.payload;
-			const indexOfList = state.lists.filter((list, index) => {
-				if (list._id == _id) {
-					return index;
-				}
-			});
-			console.log(indexOfList);
-			state.lists[indexOfList].taskArr.push(newTask);
+		updateLists(state, action) {
+			//expects action.payload to be a new array of lists
+			console.log(
+				'in addTask reducer fn, trying to set state.lists.lists to ',
+				action.payload
+			);
+			state.lists = action.payload;
 		},
 		// payload should be an object with two properties, listIndex and taskIndex
 		// listIndex should be the index of the current list, and taskIndex should be the
@@ -185,7 +183,7 @@ export const thunks = {
 export const {
 	createList,
 	deleteList,
-	addTask,
+	updateLists,
 	deleteTask,
 	saveTask,
 	moveTask,
