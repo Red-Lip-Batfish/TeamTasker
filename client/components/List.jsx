@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
@@ -9,7 +9,7 @@ import axios from 'axios';
 const List = ({ title, tasks, _id }) => {
 	// assign the evaluated result of useDispatch to a constant, dispatch
 	const dispatch = useDispatch();
-
+	const [task, setTask] = useState()
 	// capture the array of lists from store in a constant called stateLists --> THIS DOESN'T WORK
 	const stateLists = useSelector((state) => state.lists.lists);
 
@@ -55,14 +55,23 @@ const List = ({ title, tasks, _id }) => {
 		})
 
 	};
-	
+	const onChange = (e) => {
+		setTask(e.target.value)
+	}
+	const saveTitle = (e) => {
+		e.preventDefault();
+		console.log(task)
+	}
 
 	// render the array of tasks and buttons
 	return (
 		<div className='list'>
 			<div>
 				Title:{title}
-				{/* <input defaultValue={title}></input> */}
+				<form onSubmit={saveTitle}>
+					<input type="text" onChange={onChange}></input>
+					<input type="submit"></input>
+				</form>
 			</div>
 			<div>
 				Tasks:
@@ -73,6 +82,7 @@ const List = ({ title, tasks, _id }) => {
 				{_id}
 			</div>
 			<button onClick={() => deleteLists(_id)}>Delete List</button>
+			
 			{/* <div className='buttonRow'>
 				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
 					Add Task
