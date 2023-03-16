@@ -37,7 +37,7 @@ const controller = {
 
 	async createList(req, res, next) {
 		console.log('in createList middleware');
-		const data = await schemas.list.create({ title: ' ' });
+		const data = await schemas.list.create({ title: ' ', taskArr: [] });
 		console.log(data);
 		res.locals._id = data._id;
 		// console.log(data);
@@ -77,21 +77,21 @@ const controller = {
 		next();
 	},
 
-	async createAndAddTask(req, res, next) {
-		console.log('in createTask middleware');
-		const { _id, task } = req.body;
-
-		const data = await schemas.taskArr.create({ task });
-		// console.log(data);
-		const currentData = await schemas.list.findOne({ _id });
-		// console.log(currentData);
-		const updated = await schemas.list.updateOne(
-			{ _id },
-			{ taskArr: [...currentData.taskArr, data] }
-		);
-		// console.log(updated);
-		// console.log(data);
-		next();
+	async addTask(req, res, next) {
+		const { _id, task, username } = req.body;
+		await schemas.User.findOne({ username: username }).then((doc) => {
+			if (doc) {
+				console.log('user document found in db matching username');
+				// //then find list by _id
+				// //then push task into found list
+				// doc.foundList.taskArr.push(task);
+				// console.log('try to push newTask');
+				// doc.save();
+				// console.log('try to save doc');
+				// res.status(200).json(doc);
+			}
+			return next();
+		});
 	},
 
 	async editTask(req, res, next) {
@@ -174,6 +174,20 @@ const controller = {
 		res.locals.lists = data;
 		next();
 	},
-};
 
+	async changeTitle(req, res, next) {
+		const { _id, newTitle } = req.body;
+		await schemas.list.updateOne(
+			{ _id: _id },
+			{ title: newTitle },
+			function (err, docs) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log('Updated Docs : ', docs);
+				}
+			}
+		);
+	},
+};
 module.exports = controller;

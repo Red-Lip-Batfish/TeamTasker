@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Task from './Task.jsx';
+// import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteList } from '../slice.js';
+import { updateLists, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
 
@@ -97,21 +97,27 @@ const List = ({ title, tasks, _id, submit}) => {
 			<div>
 				Title:{title}
 				<form onSubmit={saveTitle}>
-					<input type="text" onChange={onChange}></input>
-					<input type="submit"></input>
+					<input type='text' onChange={onChange}></input>
+					<input type='submit'></input>
 				</form>
 			</div>}
 		
 			<div>
 				Tasks:
-				{tasks}
+				{/* {arrOfTasks} */}
 			</div>
+			<input id='addNewTask' onChange={(e) => setTask(e.target.value)}></input>
+			<button
+				onClick={() => addNewTask({ task: task, _id: _id, username: username })}
+			>
+				Add Task
+			</button>
 			<div>
 				ID:
 				{_id}
 			</div>
 			<button onClick={() => deleteLists(_id)}>Delete List</button>
-			
+
 			{/* <div className='buttonRow'>
 				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
 					Add Task

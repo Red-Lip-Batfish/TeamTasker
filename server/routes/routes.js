@@ -30,8 +30,8 @@ router.post('/saveList', controller.saveList, (req, res) => {
 	res.status(200).json(res.locals.updated);
 });
 
-router.post('/createAndAddTask', controller.createAndAddTask, (req, res) => {
-	res.status(200).json('task created'); //.json('task created');
+router.post('/addTask', controller.addTask, (req, res) => {
+	res.status(200).json('task created');
 });
 
 router.post('/editTask', controller.editTask, (req, res) => {
@@ -53,7 +53,5 @@ router.post('/assignUser', controller.assignUser, (req, res) => {
 router.post('/unassignUser', controller.unassignUser, (req, res) => {
 	res.status(200).json('user unassigned');
 });
-
-
 
 module.exports = router;
