@@ -20,6 +20,7 @@ const blankList = {
 	title: '',
 	taskArr: [],
 	_id: undefined,
+	submit: false,
 };
 
 const blankTask = {
@@ -34,10 +35,10 @@ const listsSlice = createSlice({
 	initialState,
 	reducers: {
 		fetchLists(state, action) {
-			console.log('inside generate page');
-			console.log('huuu2u', action.payload);
 			state.lists.push(action.payload);
-			// console.log('huuuu', state.lists);
+		},
+		getUsername(state, action) {
+			state['username'] = action.payload;
 		},
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {
@@ -118,7 +119,6 @@ export const thunks = {
 				.then((response) => dispatch(createList(response.data)));
 		};
 	},
-
 	saveListThunk(listDetails) {
 		return (dispatch) => {
 			axios
@@ -191,5 +191,6 @@ export const {
 	moveTask,
 	saveList,
 	fetchLists,
+	getUsername,
 } = listsSlice.actions;
 export default listsSlice.reducer;

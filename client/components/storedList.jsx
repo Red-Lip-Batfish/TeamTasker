@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Task from './Task.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
 
-const List = ({ title, tasks, _id }) => {
+
+const StoredList = ({ title, tasks, _id }) => {
+	// assign the evaluated result of useDispatch to a constant, dispatch
 	const dispatch = useDispatch();
-	const [task, setTask] = useState();
-	const [submit, setSubmit] = useState(false); // Add submit state
+	// capture the array of lists from store in a constant called stateLists --> THIS DOESN'T WORK
 	const stateLists = useSelector((state) => state.lists.lists);
-
-	const onChange = (e) => {
-		setTask(e.target.value);
-	};
-
-	const saveTitle = (e) => {
-		e.preventDefault();
-		setSubmit(true); // Update submit state to true
-	};
-
-	useEffect(() => {
-		// Re-render the component when submit changes
-		// Perform any actions that need to be performed when submit is true here
-		if (submit) {
-			console.log('Submit is true!');
-			// Perform any actions that need to be performed when submit is true
-		}
-	}, [submit]);
 
 	// populate an array of tasks with the tasks in the current list's tasks array (from props)
 	// const arrOfTasks = [];
@@ -53,71 +36,39 @@ const List = ({ title, tasks, _id }) => {
 	// 	}
 	// 	dispatch(addTask(listIndex));
 	// };
-	const submitList = (id) => {
-		const updatedList = stateLists.filter((list) => {
-			return list._id !== id;
-		});
-		console.log('updatedList', updatedList);
-	};
+
 	// define the deleteList functionality that will trigger on button click
 	const deleteLists = (id) => {
-		console.log('stateLists', stateLists);
+		console.log('stateLists',stateLists)
 		const updatedList = stateLists.filter((list) => {
-			console.log('list._id', list._id);
-			console.log('props._id', id);
-			return list._id !== id;
-		});
-		console.log('updatedList', updatedList);
-
+			console.log('list._id',list._id)
+			console.log('props._id', id)
+			return list._id !== id});
+			console.log('updatedList',updatedList)
+		
 		dispatch(deleteList(updatedList));
 
-		console.log('running after dispatch');
-		axios.post('/deleteList', {
-			_id: id,
-		});
-	};
-	const addNewTask = (propsObj) => {
-		console.log('trying to add new task with ', propsObj);
-		dispatch(addTask(propsObj));
-		axios.post('/addTask', propsObj);
-	};
+		console.log('running after dispatch')
+		axios.post('/deleteList',{
+			_id: id
+		})
 
-	useEffect(() => {
-		// Re-render the component when submit changes
-		// Perform any actions that need to be performed when submit is true here
-		if (submit) {
-			console.log('Submit is true!');
-			// Perform any actions that need to be performed when submit is true
-		}
-	}, [submit]);
+	};
 
 	// render the array of tasks and buttons
 	return (
 		<div className='list'>
-			<div>
-				Title:{title}
-				<form onSubmit={saveTitle}>
-					<input type='text' onChange={onChange}></input>
-					<input type='submit'></input>
-				</form>
-			</div>
+            <h2>{title}</h2>
 			<div>
 				Tasks:
-				{arrOfTasks}
+				{tasks}
 			</div>
-			<input
-				id='addNewTask'
-				onChange={(e) => newTaskName(e.target.value)}
-			></input>
-			<button onClick={() => addNewTask({ newTask: newTask, _id: _id })}>
-				Add Task
-			</button>
 			<div>
 				ID:
 				{_id}
 			</div>
 			<button onClick={() => deleteLists(_id)}>Delete List</button>
-
+			
 			{/* <div className='buttonRow'>
 				<button onClick={() => dispatch(thunks.addTaskThunk(props._id))}>
 					Add Task
@@ -141,4 +92,4 @@ const List = ({ title, tasks, _id }) => {
 	);
 };
 
-export default List;
+export default StoredList;
