@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
+import StoredList from './storedList.jsx';
 
 const List = ({ title, tasks, _id }) => {
   const dispatch = useDispatch();
-  const [task, setTask] = useState();
+  const [task, setTask] = useState('');
   const [submit, setSubmit] = useState(false); // Add submit state
   const stateLists = useSelector((state) => state.lists.lists);
 
@@ -76,25 +77,22 @@ const List = ({ title, tasks, _id }) => {
 
 	};
 	
-	  useEffect(() => {
-		// Re-render the component when submit changes
-		// Perform any actions that need to be performed when submit is true here
-		if (submit) {
-		  console.log('Submit is true!');
-		  // Perform any actions that need to be performed when submit is true
-		}
-	  }, [submit]);
 
 	// render the array of tasks and buttons
 	return (
 		<div className='list'>
+			{submit === true ? 
+			<div>
+				<h2>{task}</h2>
+			</div> : 	
 			<div>
 				Title:{title}
 				<form onSubmit={saveTitle}>
 					<input type="text" onChange={onChange}></input>
 					<input type="submit"></input>
 				</form>
-			</div>
+			</div>}
+		
 			<div>
 				Tasks:
 				{tasks}

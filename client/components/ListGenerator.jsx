@@ -8,8 +8,8 @@ const ListGenerator = (props) => {
 	// declare a constant arrOfLists and populate it with the lists in state.reducer.lists
 	let arrOfLists = lists.map((list) => {
 		// console.log(list)
-		console.log(list.isSubmitted)
-		if (list.isSubmitted) {
+		console.log(list.submit)
+		if (list.submit) {
 			return <StoredList title={list.title} task={list.taskArr} _id={list._id}/>;
 		  } else {
 			return <List title={list.title} tasks={list.taskArr} _id={list._id} submit={list.submit} />;
