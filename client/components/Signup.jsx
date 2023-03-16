@@ -2,7 +2,8 @@
 import React from 'react';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from 'axios'
-
+import { useDispatch } from 'react-redux';
+import { getUsername } from '../slice';
 // define Signup component
 const Signup = (props) => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Signup = (props) => {
     const data = await axios.post('/signup', requestBody)
       .then((response) => {
         if(response.status === 200) {
+          dispatchEvent(getUsername(username))
           navigate({
             pathname: '/home',
             search: `?username=${username}`});
