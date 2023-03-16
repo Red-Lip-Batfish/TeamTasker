@@ -35,7 +35,8 @@ const listsSlice = createSlice({
 	initialState,
 	reducers: {
 		fetchLists(state, action) {
-			state.lists.push(action.payload);
+			console.log('fetchlist', action.payload)
+			state.lists.push(...action.payload);
     },
 		getUsername(state,action) {
 			state['username']= action.payload

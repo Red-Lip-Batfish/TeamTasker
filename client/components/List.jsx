@@ -5,12 +5,13 @@ import { addTask, deleteList } from '../slice.js';
 import { thunks } from '../slice.js';
 import axios from 'axios';
 
-const List = ({ title, tasks, _id }) => {
+const List = ({ title, tasks, _id, submit}) => {
   const dispatch = useDispatch();
-  const [task, setTask] = useState('');
-  const [submit, setSubmit] = useState(false); // Add submit state
+  const [task, setTask] = useState(submit);
+  const [submitted, setSubmit] = useState(submit); // Add submit state
   const stateLists = useSelector((state) => state.lists.lists);
   const username = useSelector((state) => state.lists.username)
+//   const isSubmit = useSelector((state) => state.lists.submit)
 
   const onChange = (e) => {
     setTask(e.target.value);
@@ -19,9 +20,6 @@ const List = ({ title, tasks, _id }) => {
   const saveTitle = async (e) => {
     e.preventDefault();
     setSubmit(true); // Update submit state to true
-	console.log(username)
-	console.log({tasks})
-	console.log(title)
 	// dispatch(thunks.saveMadeListThunk())
 	const data = await axios.post('/saveUserList', {title: task, tasks: tasks, _id: _id, username: username})
 		.then((res) => {
@@ -92,9 +90,9 @@ const List = ({ title, tasks, _id }) => {
 	// render the array of tasks and buttons
 	return (
 		<div className='list'>
-			{submit === true ? 
+			{submitted === true ? 
 			<div>
-				<h2>{task}</h2>
+				<h2>{title || task}</h2>
 			</div> : 	
 			<div>
 				Title:{title}
