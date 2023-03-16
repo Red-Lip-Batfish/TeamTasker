@@ -34,10 +34,7 @@ const listsSlice = createSlice({
 	initialState,
 	reducers: {
 		fetchLists(state, action) {
-			console.log('inside generate page');
-			console.log('huuu2u', action.payload);
 			state.lists.push(action.payload);
-      // console.log('huuuu', state.lists);
     },
 		// action payload: newListId, fetched in the corresponding thunk
 		createList(state, action) {

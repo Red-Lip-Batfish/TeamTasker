@@ -20,9 +20,8 @@ const Login = (props) => {
 		const data = await axios.post('/login', requestBody)
 		  .then((res) => {
 		    if(res.status === 200) {
-				console.log('hi', res.data[0].lists)
-				dispatch(fetchLists(res.data[0].lists))
-				// console.log('res', res.data[0].lists)
+				dispatch(fetchLists({_id: '64122bb2832821f9701d2433', title: 'dawdwa', taskArr: [], __v: 0}))
+				console.log('res', res.data[0].lists)
 		      navigate({
 		        pathname: '/home',
 		        search: `?username=${username}`});
